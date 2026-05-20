@@ -17,7 +17,7 @@ export function toGrid(px, py) {
 
 export function zoomGrid(factor, centerPx) {
   const old = state.zoom;
-  const nw  = Math.min(90, Math.max(14, old * factor));
+  const nw  = Math.min(90, Math.max(28, old * factor));
   state.origin.x = centerPx.x - (centerPx.x - state.origin.x) * (nw / old);
   state.origin.y = centerPx.y - (centerPx.y - state.origin.y) * (nw / old);
   state.zoom = nw;
@@ -48,7 +48,7 @@ export function drawGrid(ctx, w, h) {
   for (let x = sx; x < w; x += zoom) {
     for (let y = sy; y < h; y += zoom) {
       ctx.beginPath();
-      ctx.arc(x, y, 2.5, 0, Math.PI * 2);
+      ctx.arc(x, y, 3.2, 0, Math.PI * 2);
       ctx.fill();
     }
   }

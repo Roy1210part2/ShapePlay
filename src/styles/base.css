@@ -19,7 +19,7 @@
 
   /* Grid — neutral, no color tint */
   --grid-line: rgba(0, 0, 0, 0.09);
-  --grid-dot:  rgba(0, 0, 0, 0.38);
+  --grid-dot:  rgba(0, 0, 0, 0.58);
 
   /* Accent — black */
   --accent:       #111111;
@@ -67,7 +67,7 @@
     --border-color: #2e2e2e;
 
     --grid-line: rgba(255, 255, 255, 0.07);
-    --grid-dot:  rgba(255, 255, 255, 0.35);
+    --grid-dot:  rgba(255, 255, 255, 0.60);
 
     --accent:       #eeeeee;
     --accent-hover: #ffffff;
