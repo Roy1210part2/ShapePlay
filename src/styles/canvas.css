@@ -1,0 +1,260 @@
+/* ============================================================
+   canvas.css — Canvas area, hint banners, and mission info
+   도형놀이 (Shape Play) — Cute & Playful Korean Math Web App
+   ============================================================ */
+
+/* ─── Canvas Area ────────────────────────────────────────── */
+#canvas-area {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  background: var(--bg-secondary);
+  transition: background var(--transition-base);
+}
+
+/* ─── Main Canvas ────────────────────────────────────────── */
+#main-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  cursor: crosshair;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+#main-canvas.cursor-default  { cursor: default; }
+#main-canvas.cursor-move     { cursor: move; }
+#main-canvas.cursor-grab     { cursor: grab; }
+#main-canvas.cursor-grabbing { cursor: grabbing; }
+#main-canvas.cursor-pointer  { cursor: pointer; }
+
+/* ─── Canvas Hint Bar ────────────────────────────────────── */
+.canvas-hint {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--modal-bg);
+  border: 1.5px solid var(--border-color);
+  color: var(--text-secondary);
+  padding: 8px 20px;
+  border-radius: var(--radius-pill);
+  font-size: 0.82rem;
+  font-weight: 500;
+  pointer-events: none;
+  white-space: nowrap;
+  box-shadow: 0 4px 16px var(--modal-shadow);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: opacity var(--transition-slow);
+  z-index: 10;
+}
+
+.canvas-hint.hidden {
+  opacity: 0;
+}
+
+/* ─── Mission Info Banner ────────────────────────────────── */
+#mission-info {
+  position: absolute;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--modal-bg);
+  border: 1.5px solid var(--accent-light);
+  color: var(--text-primary);
+  padding: 8px 20px;
+  border-radius: var(--radius-pill);
+  font-size: 0.85rem;
+  font-weight: 600;
+  box-shadow: 0 4px 16px var(--modal-shadow);
+  pointer-events: none;
+  white-space: nowrap;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 10;
+  transition:
+    opacity var(--transition-slow),
+    transform var(--transition-slow);
+}
+
+#mission-info.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ─── Floating Action Buttons ────────────────────────────── */
+.canvas-fab-group {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 10;
+}
+
+.canvas-fab {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--modal-bg);
+  border: 1.5px solid var(--border-color);
+  border-radius: 50%;
+  color: var(--text-secondary);
+  cursor: pointer;
+  box-shadow: 0 4px 12px var(--modal-shadow);
+  transition:
+    background var(--transition-fast),
+    border-color var(--transition-fast),
+    color var(--transition-fast),
+    transform var(--transition-fast);
+}
+
+.canvas-fab:hover {
+  background: var(--accent-light);
+  border-color: var(--accent);
+  color: var(--accent);
+  transform: scale(1.08);
+}
+
+.canvas-fab:active {
+  transform: scale(0.95);
+}
+
+.canvas-fab svg {
+  width: 18px;
+  height: 18px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* ─── Selection Box ──────────────────────────────────────── */
+.selection-indicator {
+  position: absolute;
+  pointer-events: none;
+  border: 2px dashed var(--accent);
+  border-radius: 4px;
+  background: var(--accent-soft);
+  transition: opacity var(--transition-fast);
+  z-index: 5;
+}
+
+/* ─── Top-Left Mode Indicator ────────────────────────────── */
+#mode-indicator {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  background: var(--modal-bg);
+  border: 1.5px solid var(--border-color);
+  padding: 6px 14px;
+  border-radius: var(--radius-pill);
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  pointer-events: none;
+  box-shadow: 0 2px 8px var(--modal-shadow);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  z-index: 10;
+  transition: opacity var(--transition-fast);
+}
+
+#mode-indicator .mode-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+  flex-shrink: 0;
+}
+
+/* ─── Canvas Empty State ─────────────────────────────────── */
+.canvas-empty-state {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  pointer-events: none;
+  opacity: 0.5;
+  z-index: 1;
+}
+
+.canvas-empty-state svg {
+  width: 56px;
+  height: 56px;
+  stroke: var(--accent);
+  fill: none;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.canvas-empty-state p {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-align: center;
+  line-height: 1.5;
+}
+
+/* ─── Zoom/Pan Controls (optional overlay) ───────────────── */
+.zoom-controls {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: var(--modal-bg);
+  border: 1.5px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 4px;
+  box-shadow: 0 4px 12px var(--modal-shadow);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  z-index: 10;
+}
+
+.zoom-btn {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-sm);
+  border: none;
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    background var(--transition-fast),
+    color var(--transition-fast);
+}
+
+.zoom-btn:hover {
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+.zoom-level {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  padding: 0 6px;
+  min-width: 44px;
+  text-align: center;
+}

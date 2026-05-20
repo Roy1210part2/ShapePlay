@@ -1,0 +1,607 @@
+/* ============================================================
+   modals.css — All modal overlays, transform blocks, shapes
+   도형놀이 (Shape Play) — Cute & Playful Korean Math Web App
+   ============================================================ */
+
+/* ─── Modal Overlay ──────────────────────────────────────── */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  padding: 20px;
+}
+
+.modal-overlay.hidden {
+  display: none;
+}
+
+/* ─── Modal Card ─────────────────────────────────────────── */
+.modal-card {
+  background: var(--modal-bg);
+  border-radius: var(--radius);
+  box-shadow:
+    0 24px 64px var(--modal-shadow),
+    0 0 0 1px var(--border-color);
+  width: 480px;
+  max-width: calc(100vw - 40px);
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  animation: slideUp 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+  position: relative;
+}
+
+/* ─── Modal Header ───────────────────────────────────────── */
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.modal-title {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.modal-close-btn {
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  border: 1.5px solid var(--border-color);
+  background: var(--bg-primary);
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    border-color var(--transition-fast),
+    color var(--transition-fast),
+    background var(--transition-fast);
+}
+
+.modal-close-btn:hover {
+  border-color: var(--error);
+  color: var(--error);
+  background: rgba(239, 68, 68, 0.06);
+}
+
+/* ─── Modal Description ──────────────────────────────────── */
+.modal-desc {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-top: -8px;
+  line-height: 1.5;
+}
+
+/* ─── Transform Blocks Container ────────────────────────── */
+.blocks-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* ─── Transform Block ────────────────────────────────────── */
+.transform-block {
+  border-radius: var(--radius-md);
+  border: 2px solid var(--border-color);
+  padding: 12px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition:
+    border-color var(--transition-base),
+    background var(--transition-base);
+  background: var(--bg-secondary);
+}
+
+/* Translate — blue tint */
+.transform-block:has(#use-translate:checked) {
+  border-color: #3b82f6;
+  background: rgba(59, 130, 246, 0.05);
+}
+
+/* Flip — teal */
+.transform-block:has(#use-flip:checked) {
+  border-color: #14b8a6;
+  background: rgba(20, 184, 166, 0.05);
+}
+
+/* Rotate — amber */
+.transform-block:has(#use-rotate:checked) {
+  border-color: #f59e0b;
+  background: rgba(245, 158, 11, 0.05);
+}
+
+/* ─── Block Toggle Label ─────────────────────────────────── */
+.block-toggle-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  user-select: none;
+}
+
+/* ─── Block Checkbox ─────────────────────────────────────── */
+.block-checkbox {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  accent-color: var(--accent);
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+/* ─── Block Chip Pills ───────────────────────────────────── */
+.block-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 14px;
+  border-radius: var(--radius-pill);
+  font-size: 0.9rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.chip-translate {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+.chip-flip {
+  background: #ccfbf1;
+  color: #0f766e;
+}
+
+.chip-rotate {
+  background: #fef3c7;
+  color: #b45309;
+}
+
+@media (prefers-color-scheme: dark) {
+  .chip-translate {
+    background: rgba(139, 124, 248, 0.20);
+    color: #c4b5fd;
+  }
+  .chip-flip {
+    background: rgba(52, 211, 153, 0.15);
+    color: #6ee7b7;
+  }
+  .chip-rotate {
+    background: rgba(251, 146, 60, 0.15);
+    color: #fda762;
+  }
+}
+
+/* ─── Block Sentence / Sub Row ───────────────────────────── */
+.block-sentence,
+.block-sub {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding-left: 28px;
+  transition: opacity var(--transition-fast);
+}
+
+/* Unchecked blocks: dimmed but still interactive so users can pre-fill values */
+.transform-block:not(:has(.block-checkbox:checked)) .block-sentence,
+.transform-block:not(:has(.block-checkbox:checked)) .block-sub {
+  opacity: 0.45;
+}
+
+/* ─── Sentence Word ──────────────────────────────────────── */
+.sent-word {
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  white-space: nowrap;
+  font-weight: 500;
+}
+
+/* ─── Sentence Select ────────────────────────────────────── */
+.sent-select {
+  padding: 6px 10px;
+  border: 1.5px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: var(--font-family);
+  transition: border-color var(--transition-fast);
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.sent-select:focus {
+  border-color: var(--accent);
+  outline: none;
+}
+
+/* ─── Sentence Input ─────────────────────────────────────── */
+.sent-input {
+  width: 60px;
+  text-align: center;
+  padding: 6px 8px;
+  border: 1.5px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-size: 1rem;
+  font-weight: 700;
+  font-family: var(--font-family);
+  transition: border-color var(--transition-fast);
+}
+
+.sent-input:focus {
+  border-color: var(--accent);
+  outline: none;
+}
+
+.sent-input.error {
+  border-color: var(--error);
+}
+
+/* ─── Error Message ──────────────────────────────────────── */
+.error-msg {
+  color: var(--error);
+  font-size: 0.72rem;
+  font-weight: 600;
+  display: none;
+  padding-left: 28px;
+}
+
+.error-msg.visible {
+  display: inline;
+}
+
+/* ─── Modal Footer ───────────────────────────────────────── */
+.modal-footer {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+}
+
+/* ─── Primary Button ─────────────────────────────────────── */
+.btn-primary {
+  background: var(--accent);
+  color: #ffffff;
+  border: none;
+  padding: 10px 22px;
+  border-radius: var(--radius-pill);
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  transition:
+    background var(--transition-fast),
+    transform var(--transition-fast),
+    box-shadow var(--transition-fast);
+  font-family: var(--font-family);
+  line-height: 1;
+}
+
+.btn-primary:hover {
+  background: var(--accent-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.30);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* ─── Secondary Button ───────────────────────────────────── */
+.btn-secondary {
+  background: var(--bg-primary);
+  color: var(--text-secondary);
+  border: 1.5px solid var(--border-color);
+  padding: 10px 22px;
+  border-radius: var(--radius-pill);
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background var(--transition-fast),
+    color var(--transition-fast),
+    border-color var(--transition-fast);
+  font-family: var(--font-family);
+  line-height: 1;
+}
+
+.btn-secondary:hover {
+  background: var(--accent-light);
+  color: var(--text-primary);
+  border-color: var(--accent);
+}
+
+/* ─── Wide Button Modifier ───────────────────────────────── */
+.btn-wide {
+  width: 100%;
+  justify-content: center;
+}
+
+/* ─── Mission Start Button ───────────────────────────────── */
+.btn-mission-start {
+  background: linear-gradient(135deg, #111111, #333333);
+  font-size: 1rem;
+  padding: 12px 28px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.30);
+  border: none;
+  color: #ffffff;
+  border-radius: var(--radius-pill);
+  font-weight: 700;
+  cursor: pointer;
+  font-family: var(--font-family);
+  transition:
+    transform var(--transition-fast),
+    box-shadow var(--transition-fast),
+    filter var(--transition-fast);
+}
+
+.btn-mission-start:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
+  filter: brightness(1.05);
+}
+
+.btn-mission-start:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* ─── Delete / Danger Button ────────────────────────────── */
+.btn-danger {
+  background: rgba(239, 68, 68, 0.08);
+  color: var(--error);
+  border: 1.5px solid rgba(239, 68, 68, 0.25);
+  padding: 10px 16px;
+  border-radius: var(--radius-pill);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-right: auto;
+  transition: background 0.15s, border-color 0.15s;
+  font-family: var(--font-family);
+}
+.btn-danger:hover {
+  background: rgba(239, 68, 68, 0.14);
+  border-color: var(--error);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   SHAPE SELECT MODAL
+   ═══════════════════════════════════════════════════════════ */
+
+#shape-select-overlay .modal-card {
+  /* inherits base .modal-card */
+}
+
+.shape-select-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 250px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.shape-select-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius-md);
+  background: var(--bg-secondary);
+  cursor: pointer;
+  text-align: left;
+  font-family: var(--font-family);
+  transition:
+    border-color var(--transition-fast),
+    background var(--transition-fast),
+    transform var(--transition-fast);
+}
+
+.shape-select-item:hover {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  transform: translateX(2px);
+}
+
+.shape-select-item.selected {
+  border-color: var(--accent);
+  background: var(--accent-light);
+}
+
+.shape-item-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.shape-item-label {
+  font-weight: 600;
+  color: var(--text-primary);
+  flex: 1;
+  font-size: 0.92rem;
+}
+
+.shape-item-type {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  background: var(--accent-soft);
+  padding: 2px 8px;
+  border-radius: var(--radius-pill);
+  white-space: nowrap;
+  font-weight: 500;
+}
+
+.shape-select-empty {
+  color: var(--text-secondary);
+  text-align: center;
+  padding: 20px;
+  font-size: 0.88rem;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   MISSION INTRO CARD
+   ═══════════════════════════════════════════════════════════ */
+
+.mission-intro-card {
+  text-align: center;
+  padding: 36px 32px;
+  gap: 16px;
+}
+
+.mission-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, #111111, #333333);
+  color: #ffffff;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 4px 14px;
+  border-radius: var(--radius-pill);
+  margin-bottom: 8px;
+  /* pulse animation applied in animations.css */
+}
+
+.mission-intro-title {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+  margin-bottom: 8px;
+}
+
+.mission-intro-desc {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  max-width: 360px;
+  margin: 0 auto 16px;
+}
+
+.mission-motivation-box {
+  background: var(--accent-soft);
+  border: 1.5px dashed var(--accent);
+  border-radius: var(--radius-md);
+  padding: 14px 18px;
+  margin-bottom: 8px;
+}
+
+.mission-motivation-text {
+  font-size: 0.9rem;
+  color: var(--accent);
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   SUCCESS CARD
+   ═══════════════════════════════════════════════════════════ */
+
+.success-card {
+  text-align: center;
+  padding: 44px 36px;
+  width: 380px;
+  max-width: calc(100vw - 40px);
+  gap: 12px;
+}
+
+.success-stars {
+  font-size: 1.5rem;
+  color: var(--accent);
+  letter-spacing: 0.3em;
+  margin-bottom: 4px;
+  line-height: 1;
+  /* Uses text characters like ★★★, not emojis */
+}
+
+.success-title {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+}
+
+.success-desc {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.success-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  margin-top: 8px;
+}
+
+/* ─── Transform Preview Area ─────────────────────────────── */
+.transform-preview {
+  width: 100%;
+  height: 120px;
+  background: var(--bg-primary);
+  border-radius: var(--radius-md);
+  border: 1.5px solid var(--border-color);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.transform-preview canvas {
+  display: block;
+}
+
+/* ─── Step Indicators (multi-step modals) ────────────────── */
+.modal-steps {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  justify-content: center;
+}
+
+.modal-step-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--border-color);
+  transition:
+    background var(--transition-base),
+    transform var(--transition-base);
+}
+
+.modal-step-dot.active {
+  background: var(--accent);
+  transform: scale(1.3);
+}
+
+.modal-step-dot.done {
+  background: var(--accent-light);
+}

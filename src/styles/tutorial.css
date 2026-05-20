@@ -1,0 +1,268 @@
+/* ============================================================
+   tutorial.css — Tutorial modal specific styles
+   도형놀이 (Shape Play) — Cute & Playful Korean Math Web App
+   ============================================================ */
+
+/* ─── Tutorial Card ──────────────────────────────────────── */
+.tutorial-card {
+  width: 540px;
+  max-width: calc(100vw - 40px);
+}
+
+/* ─── Tutorial Body ──────────────────────────────────────── */
+.tutorial-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  text-align: center;
+  padding: 8px 0;
+}
+
+/* ─── Tutorial Icon Block ────────────────────────────────── */
+.tutorial-icon {
+  width: 80px;
+  height: 80px;
+  background: var(--accent-soft);
+  border-radius: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent);
+  flex-shrink: 0;
+  transition:
+    background var(--transition-base),
+    transform var(--transition-slow);
+  animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+}
+
+.tutorial-icon svg {
+  width: 48px;
+  height: 48px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Icon variants per step */
+.tutorial-icon.icon-draw    { background: rgba(0, 0, 0, 0.05); color: #111111; }
+.tutorial-icon.icon-select  { background: rgba(59, 130, 246, 0.10);  color: #3b82f6; }
+.tutorial-icon.icon-move    { background: rgba(16, 185, 129, 0.10);  color: #10b981; }
+.tutorial-icon.icon-transform { background: rgba(245, 158, 11, 0.10); color: #f59e0b; }
+.tutorial-icon.icon-mission { background: rgba(236, 72, 153, 0.10);  color: #ec4899; }
+
+/* ─── Step Badge ─────────────────────────────────────────── */
+.tutorial-step-badge {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: var(--accent-soft);
+  padding: 3px 12px;
+  border-radius: var(--radius-pill);
+  line-height: 1.6;
+  flex-shrink: 0;
+}
+
+/* ─── Step Title ─────────────────────────────────────────── */
+.tutorial-step-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+}
+
+/* ─── Step Content ───────────────────────────────────────── */
+.tutorial-step-content {
+  font-size: 0.92rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.tutorial-step-content strong,
+.tutorial-step-content b {
+  color: var(--text-primary);
+  font-weight: 700;
+}
+
+.tutorial-step-content code {
+  background: var(--accent-soft);
+  color: var(--accent);
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-size: 0.85em;
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  font-weight: 600;
+}
+
+/* ─── Tutorial Key Hint ──────────────────────────────────── */
+.tutorial-key-hint {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--bg-primary);
+  border: 1.5px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  padding: 6px 14px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.tutorial-key-hint kbd {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-secondary);
+  border: 1.5px solid var(--border-color);
+  border-radius: 5px;
+  padding: 2px 7px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  font-family: var(--font-family);
+  box-shadow: 0 2px 0 var(--border-color);
+}
+
+/* ─── Progress Dots ──────────────────────────────────────── */
+.tutorial-progress {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 4px 0;
+}
+
+.tutorial-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--border-color);
+  transition:
+    background var(--transition-base),
+    transform var(--transition-base),
+    width var(--transition-base),
+    border-radius var(--transition-base);
+  flex-shrink: 0;
+}
+
+.tutorial-dot.active {
+  background: var(--accent);
+  transform: scale(1.25);
+}
+
+.tutorial-dot.done {
+  background: var(--accent-light);
+  width: 20px;
+  border-radius: 4px;
+}
+
+/* ─── Tutorial Footer ────────────────────────────────────── */
+.tutorial-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.tutorial-footer .btn-secondary {
+  min-width: 88px;
+}
+
+.tutorial-footer .btn-primary {
+  min-width: 110px;
+}
+
+/* Skip button */
+.btn-tutorial-skip {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 0.82rem;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  padding: 4px;
+  font-family: var(--font-family);
+  transition:
+    color var(--transition-fast),
+    text-decoration-color var(--transition-fast);
+}
+
+.btn-tutorial-skip:hover {
+  color: var(--accent);
+  text-decoration-color: var(--accent);
+}
+
+/* ─── Tutorial Illustration Area ─────────────────────────── */
+.tutorial-illustration {
+  width: 100%;
+  max-width: 360px;
+  height: 150px;
+  background: var(--bg-primary);
+  border-radius: var(--radius-md);
+  border: 1.5px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+}
+
+.tutorial-illustration svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* ─── Step Transition ────────────────────────────────────── */
+.tutorial-step-enter {
+  animation: fadeIn 0.2s ease both;
+}
+
+.tutorial-step-exit {
+  animation: fadeIn 0.2s ease reverse both;
+}
+
+/* ─── Highlight Box (inside content) ────────────────────── */
+.tutorial-highlight {
+  background: var(--accent-soft);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  padding: 10px 14px;
+  text-align: left;
+  font-size: 0.88rem;
+  color: var(--text-primary);
+  font-weight: 500;
+  line-height: 1.5;
+  margin-top: 4px;
+}
+
+/* ─── Final Step — completion state ──────────────────────── */
+.tutorial-complete-icon {
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, rgba(139, 124, 248, 0.15), rgba(167, 139, 250, 0.15));
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent);
+  animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+}
+
+.tutorial-complete-icon svg {
+  width: 44px;
+  height: 44px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}

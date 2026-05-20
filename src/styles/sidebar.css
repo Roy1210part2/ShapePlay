@@ -1,0 +1,392 @@
+/* ============================================================
+   sidebar.css — Sidebar layout, controls, and menu buttons
+   도형놀이 (Shape Play) — Cute & Playful Korean Math Web App
+   ============================================================ */
+
+/* ─── Sidebar Container ──────────────────────────────────── */
+#sidebar {
+  width: var(--sidebar-w);
+  flex-shrink: 0;
+  background: var(--sidebar-bg);
+  border-right: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  padding: 24px 18px;
+  gap: 18px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  transition: background var(--transition-base);
+}
+
+/* ─── Sidebar Header ─────────────────────────────────────── */
+.sidebar-header {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding-bottom: 4px;
+}
+
+.sidebar-title {
+  font-size: 1.6rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--accent);
+  line-height: 1.1;
+}
+
+.sidebar-subtitle {
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+/* ─── Divider ────────────────────────────────────────────── */
+.sidebar-divider {
+  height: 1px;
+  background: var(--border-color);
+  border: none;
+  margin: 0;
+  flex-shrink: 0;
+}
+
+/* ─── Section Label ──────────────────────────────────────── */
+.sidebar-section-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  padding: 0 4px;
+}
+
+/* ─── Timeline Controls ──────────────────────────────────── */
+.timeline-controls {
+  display: flex;
+  gap: 8px;
+}
+
+.timeline-controls .icon-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 9px 12px;
+  background: var(--bg-secondary);
+  border: 1.5px solid var(--border-color);
+  border-radius: var(--radius-md);
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background var(--transition-fast),
+    border-color var(--transition-fast),
+    color var(--transition-fast),
+    transform var(--transition-fast);
+}
+
+.timeline-controls .icon-btn:hover {
+  background: var(--accent-light);
+  border-color: var(--accent);
+  color: var(--accent);
+  transform: translateY(-1px);
+}
+
+.timeline-controls .icon-btn:active {
+  transform: translateY(0);
+}
+
+.timeline-controls .icon-btn svg {
+  width: 16px;
+  height: 16px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* ─── Draw Sub-Mode Tabs ─────────────────────────────────── */
+.draw-submode-tabs {
+  display: flex;
+  background: var(--accent-soft);
+  border-radius: var(--radius-pill);
+  padding: 3px;
+  gap: 2px;
+}
+
+.draw-submode-tabs button {
+  flex: 1;
+  padding: 7px 10px;
+  border-radius: var(--radius-pill);
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition:
+    background var(--transition-fast),
+    color var(--transition-fast),
+    box-shadow var(--transition-fast);
+  white-space: nowrap;
+}
+
+.draw-submode-tabs button.active {
+  background: var(--bg-secondary);
+  color: var(--accent);
+  box-shadow: 0 2px 8px rgba(139, 124, 248, 0.18);
+}
+
+@media (prefers-color-scheme: dark) {
+  .draw-submode-tabs button.active {
+    background: var(--bg-primary);
+  }
+}
+
+.draw-submode-tabs button:not(.active):hover {
+  background: rgba(139, 124, 248, 0.12);
+  color: var(--accent);
+}
+
+/* ─── Confirm Point Area ─────────────────────────────────── */
+.confirm-point-area {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.btn-confirm-point {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 20px;
+  background: var(--accent);
+  color: #ffffff;
+  border: none;
+  border-radius: var(--radius-pill);
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(139, 124, 248, 0.40);
+  transition:
+    background var(--transition-fast),
+    transform var(--transition-fast),
+    box-shadow var(--transition-fast);
+}
+
+.btn-confirm-point:hover {
+  background: var(--accent-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(139, 124, 248, 0.50);
+}
+
+.btn-confirm-point:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(139, 124, 248, 0.30);
+}
+
+.btn-confirm-point svg {
+  width: 18px;
+  height: 18px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* ─── Menu Navigation ────────────────────────────────────── */
+.sidebar-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.menu-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  text-align: left;
+  transition:
+    background var(--transition-fast),
+    color var(--transition-fast),
+    box-shadow var(--transition-fast),
+    transform var(--transition-fast);
+  position: relative;
+}
+
+.menu-btn:hover {
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+.menu-btn.active {
+  background: var(--accent-light);
+  color: var(--accent);
+  box-shadow: 0 2px 8px rgba(139, 124, 248, 0.12), 0 1px 0 rgba(139, 124, 248, 0.08);
+  transform: translateY(-0.5px);
+}
+
+.menu-btn:active {
+  transform: translateY(0);
+}
+
+/* ─── Menu Button — Icon Wrapper ─────────────────────────── */
+.btn-icon-wrap {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-sm);
+  flex-shrink: 0;
+  background: transparent;
+  transition: background var(--transition-fast);
+}
+
+.menu-btn.active .btn-icon-wrap {
+  background: var(--accent-soft);
+}
+
+/* ─── Menu Button — SVG Icon ─────────────────────────────── */
+.btn-svg {
+  width: 20px;
+  height: 20px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  flex-shrink: 0;
+}
+
+/* ─── Menu Button — Label ────────────────────────────────── */
+.btn-label {
+  flex: 1;
+  font-size: 1.05rem;
+  font-weight: 600;
+  line-height: 1;
+}
+
+/* ─── Mode Label ─────────────────────────────────────────── */
+.mode-label {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  text-align: center;
+  padding: 6px 10px;
+  background: var(--accent-soft);
+  border-radius: var(--radius-sm);
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+/* ─── Sidebar Footer ─────────────────────────────────────── */
+.sidebar-footer {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-top: 8px;
+}
+
+/* ─── Danger / Destructive Text Button ───────────────────── */
+.btn-danger-text {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background: transparent;
+  border: 1.5px solid var(--border-color);
+  color: var(--text-secondary);
+  padding: 8px 14px;
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    border-color var(--transition-fast),
+    color var(--transition-fast),
+    background var(--transition-fast);
+}
+
+.btn-danger-text:hover {
+  border-color: var(--error);
+  color: var(--error);
+  background: rgba(239, 68, 68, 0.06);
+}
+
+.btn-danger-text svg {
+  width: 15px;
+  height: 15px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* ─── Tutorial Link Button ───────────────────────────────── */
+.btn-tutorial-link {
+  display: block;
+  width: 100%;
+  background: none;
+  border: none;
+  color: var(--accent);
+  font-size: 0.82rem;
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: rgba(139, 124, 248, 0.40);
+  cursor: pointer;
+  text-align: center;
+  padding: 4px;
+  transition:
+    color var(--transition-fast),
+    text-decoration-color var(--transition-fast);
+}
+
+.btn-tutorial-link:hover {
+  color: var(--accent-hover);
+  text-decoration-color: var(--accent);
+}
+
+/* ─── Shape Count Badge ──────────────────────────────────── */
+.shape-count-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 6px;
+  background: var(--accent);
+  color: #ffffff;
+  font-size: 0.72rem;
+  font-weight: 700;
+  border-radius: var(--radius-pill);
+  line-height: 1;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+/* ─── Sidebar Scroll Fade ────────────────────────────────── */
+#sidebar::after {
+  content: '';
+  display: block;
+  height: 1px;
+  flex-shrink: 0;
+}

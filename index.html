@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>도형놀이</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pretendard@latest/dist/web/static/pretendard.css">
+  <link rel="stylesheet" href="/src/styles/base.css">
+  <link rel="stylesheet" href="/src/styles/sidebar.css">
+  <link rel="stylesheet" href="/src/styles/canvas.css">
+  <link rel="stylesheet" href="/src/styles/modals.css">
+  <link rel="stylesheet" href="/src/styles/tutorial.css">
+  <link rel="stylesheet" href="/src/styles/animations.css">
+</head>
+<body>
+  <div id="app">
+    <aside id="sidebar">
+      <div class="sidebar-header">
+        <h1 class="sidebar-title">도형놀이</h1>
+        <p class="sidebar-subtitle">ShapePlay</p>
+      </div>
+
+      <div class="timeline-controls">
+        <button id="btn-undo" class="icon-btn" title="뒤로가기" disabled>&larr;</button>
+        <button id="btn-redo" class="icon-btn" title="앞으로가기" disabled>&rarr;</button>
+      </div>
+
+      <!-- Draw sub-mode tabs -->
+      <div id="draw-submode-tabs" class="draw-submode-tabs">
+        <button id="draw-sub-polygon" class="sub-tab active">다각형</button>
+        <button id="draw-sub-point" class="sub-tab">점</button>
+      </div>
+
+      <nav class="menu">
+        <button id="btn-draw" class="menu-btn active">
+          <span class="btn-icon-wrap">
+            <svg class="btn-svg" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M3 17L8 12L13 16L19 4"/>
+              <circle cx="8" cy="12" r="2" fill="currentColor" stroke="none"/>
+              <circle cx="13" cy="16" r="2" fill="currentColor" stroke="none"/>
+            </svg>
+          </span>
+          <span>도형 만들기</span>
+        </button>
+        <button id="btn-transform" class="menu-btn">
+          <span class="btn-icon-wrap">
+            <svg class="btn-svg" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M3 10H17M10 3V17" stroke-linecap="round"/>
+              <polyline points="14,6 17,10 14,14" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+          <span>도형 이동하기</span>
+        </button>
+      </nav>
+
+      <div class="sidebar-footer">
+        <button id="btn-clear" class="btn-danger-text">처음부터</button>
+        <div id="mode-label" class="mode-label">도형 만들기 모드</div>
+        <button id="btn-tutorial" class="btn-tutorial-link">사용 방법</button>
+      </div>
+    </aside>
+
+    <main id="canvas-area">
+      <canvas id="main-canvas"></canvas>
+      <div id="drawing-hint" class="canvas-hint">격자 위를 클릭해 꼭짓점을 찍어요. 첫 점 근처를 클릭하면 도형이 완성돼요.</div>
+    </main>
+  </div>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

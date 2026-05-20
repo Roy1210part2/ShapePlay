@@ -1,0 +1,346 @@
+/* ============================================================
+   animations.css — Keyframes and animation utility classes
+   도형놀이 (Shape Play) — Cute & Playful Korean Math Web App
+   ============================================================ */
+
+/* ─── Respect reduced-motion preference ─────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ════════════════════════════════════════════════════════════
+   KEYFRAME DEFINITIONS
+   ════════════════════════════════════════════════════════════ */
+
+/* ─── Shake — for invalid input feedback ─────────────────── */
+@keyframes shake {
+  0%,  100% { transform: translateX(0); }
+  20%       { transform: translateX(-10px); }
+  40%       { transform: translateX(10px); }
+  60%       { transform: translateX(-6px); }
+  80%       { transform: translateX(6px); }
+}
+
+/* ─── Modal Entry — slides up and scales in ─────────────── */
+@keyframes slideUp {
+  from {
+    transform: translateY(24px) scale(0.97);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+/* ─── Pop In — celebratory scale bounce ─────────────────── */
+@keyframes popIn {
+  from {
+    transform: scale(0.75);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* ─── Fade In ────────────────────────────────────────────── */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* ─── Fade Out ───────────────────────────────────────────── */
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}
+
+/* ─── Slide Down — for dropdown / hint appear ────────────── */
+@keyframes slideDown {
+  from {
+    transform: translateY(-10px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* ─── Slide Left ─────────────────────────────────────────── */
+@keyframes slideInLeft {
+  from {
+    transform: translateX(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* ─── Pulse — for mission badge glow ────────────────────── */
+@keyframes pulse {
+  0%,  100% { box-shadow: 0 0 0 0   rgba(0, 0, 0, 0.20); }
+  50%       { box-shadow: 0 0 0 8px rgba(0, 0, 0, 0.00); }
+}
+
+/* ─── Gentle Float — idle shape wiggle ──────────────────── */
+@keyframes float {
+  0%,  100% { transform: translateY(0);    }
+  50%       { transform: translateY(-6px); }
+}
+
+/* ─── Spin ───────────────────────────────────────────────── */
+@keyframes spin {
+  from { transform: rotate(0deg);   }
+  to   { transform: rotate(360deg); }
+}
+
+/* ─── Ping — ripple for success dots ────────────────────── */
+@keyframes ping {
+  75%,  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+/* ─── Bounce — for loading states ───────────────────────── */
+@keyframes bounce {
+  0%,  100% {
+    transform: translateY(0);
+    animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+  }
+  50% {
+    transform: translateY(-6px);
+    animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+  }
+}
+
+/* ─── Draw Line — for SVG strokes ───────────────────────── */
+@keyframes drawLine {
+  from { stroke-dashoffset: 1000; }
+  to   { stroke-dashoffset: 0;    }
+}
+
+/* ─── Number Count ───────────────────────────────────────── */
+@keyframes countUp {
+  from { transform: translateY(6px); opacity: 0; }
+  to   { transform: translateY(0);   opacity: 1; }
+}
+
+/* ─── Star Burst — success celebration ──────────────────── */
+@keyframes starBurst {
+  0%  { transform: scale(0) rotate(0deg);   opacity: 1; }
+  80% { transform: scale(1) rotate(360deg); opacity: 1; }
+  100%{ transform: scale(1) rotate(360deg); opacity: 0; }
+}
+
+/* ════════════════════════════════════════════════════════════
+   ANIMATION UTILITY CLASSES
+   ════════════════════════════════════════════════════════════ */
+
+/* ─── Shake ──────────────────────────────────────────────── */
+.shake {
+  animation: shake 0.4s ease;
+}
+
+/* ─── Pop In ─────────────────────────────────────────────── */
+.pop-in {
+  animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+}
+
+/* ─── Fade In ────────────────────────────────────────────── */
+.fade-in {
+  animation: fadeIn 0.3s ease both;
+}
+
+/* ─── Slide Up ───────────────────────────────────────────── */
+.slide-up {
+  animation: slideUp 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+}
+
+/* ─── Slide Down ─────────────────────────────────────────── */
+.slide-down {
+  animation: slideDown 0.2s ease both;
+}
+
+/* ─── Float (continuous) ─────────────────────────────────── */
+.float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* ─── Spin (continuous) ──────────────────────────────────── */
+.spin {
+  animation: spin 1s linear infinite;
+}
+
+/* ─── Bounce (continuous) ────────────────────────────────── */
+.bounce-anim {
+  animation: bounce 1s infinite;
+}
+
+/* ─── Delay utilities ────────────────────────────────────── */
+.delay-100 { animation-delay: 100ms; }
+.delay-200 { animation-delay: 200ms; }
+.delay-300 { animation-delay: 300ms; }
+.delay-400 { animation-delay: 400ms; }
+.delay-500 { animation-delay: 500ms; }
+
+/* ════════════════════════════════════════════════════════════
+   COMPONENT-SPECIFIC ANIMATION OVERRIDES
+   ════════════════════════════════════════════════════════════ */
+
+/* ─── Mission Badge — pulse glow ─────────────────────────── */
+.mission-badge {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+/* ─── Primary Button — hover lift ───────────────────────── */
+.btn-primary {
+  transition:
+    background 0.15s ease,
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+}
+
+/* ─── Menu Button — smooth entry ────────────────────────── */
+.menu-btn {
+  transition:
+    background 0.15s ease,
+    color 0.15s ease,
+    transform 0.15s ease,
+    box-shadow 0.2s ease;
+}
+
+/* ─── Shape Item — slide on hover ───────────────────────── */
+.shape-select-item {
+  transition:
+    border-color 0.15s ease,
+    background 0.15s ease,
+    transform 0.15s ease;
+}
+
+/* ─── Transform Block — smooth color change ──────────────── */
+.transform-block {
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease;
+}
+
+/* ─── Tutorial Icon — entrance bounce ───────────────────── */
+.tutorial-icon {
+  animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+  transition: background 0.2s ease, transform 0.3s ease;
+}
+
+/* ─── Canvas Hint — fade transition ─────────────────────── */
+.canvas-hint {
+  transition: opacity 0.3s ease;
+}
+
+/* ─── Draw Submode Tabs — smooth switch ──────────────────── */
+.draw-submode-tabs button {
+  transition:
+    background 0.15s ease,
+    color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+/* ─── Success Card — enter animation ────────────────────── */
+.success-card {
+  animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+}
+
+/* ─── Tutorial Step — cross-fade on step change ─────────── */
+.tutorial-body {
+  animation: fadeIn 0.2s ease both;
+}
+
+/* ─── Sidebar — slide in from left ──────────────────────── */
+#sidebar {
+  animation: slideInLeft 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+}
+
+/* ─── Confirm Button ─────────────────────────────────────── */
+.btn-confirm-point {
+  transition:
+    background 0.15s ease,
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+/* ─── Icon Buttons (timeline controls) ───────────────────── */
+.timeline-controls .icon-btn {
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease,
+    color 0.15s ease,
+    transform 0.15s ease;
+}
+
+/* ─── Modal Close Button ─────────────────────────────────── */
+.modal-close-btn {
+  transition:
+    border-color 0.15s ease,
+    color 0.15s ease,
+    background 0.15s ease;
+}
+
+/* ─── Danger Text Button ─────────────────────────────────── */
+.btn-danger-text {
+  transition:
+    border-color 0.15s ease,
+    color 0.15s ease,
+    background 0.15s ease;
+}
+
+/* ─── Tutorial Progress Dots ─────────────────────────────── */
+.tutorial-dot {
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease,
+    width 0.2s ease,
+    border-radius 0.2s ease;
+}
+
+/* ─── Sent Select / Input focus ring ─────────────────────── */
+.sent-select,
+.sent-input {
+  transition: border-color 0.15s ease;
+}
+
+/* ─── Secondary Button ───────────────────────────────────── */
+.btn-secondary {
+  transition:
+    background 0.15s ease,
+    color 0.15s ease,
+    border-color 0.15s ease;
+}
+
+/* ─── Mission Start Button ───────────────────────────────── */
+.btn-mission-start {
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    filter 0.15s ease;
+}
