@@ -2,8 +2,18 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>도형놀이</title>
+  <!-- 테마 초기화: 렌더 전에 실행해 깜빡임 방지 -->
+  <script>
+    (function () {
+      var t = localStorage.getItem('theme');
+      if (t) document.documentElement.setAttribute('data-theme', t);
+      if (localStorage.getItem('sidebar-collapsed') === 'true') {
+        document.documentElement.setAttribute('data-sidebar-collapsed', '');
+      }
+    })();
+  </script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pretendard@latest/dist/web/static/pretendard.css">
   <link rel="stylesheet" href="/src/styles/base.css">
   <link rel="stylesheet" href="/src/styles/sidebar.css">
@@ -16,7 +26,36 @@
   <div id="app">
     <aside id="sidebar">
       <div class="sidebar-header">
-        <h1 class="sidebar-title">도형놀이</h1>
+        <div class="sidebar-title-row">
+          <h1 class="sidebar-title">도형놀이</h1>
+          <div class="sidebar-header-actions">
+            <!-- 다크/라이트 모드 토글 -->
+            <button id="btn-theme-toggle" class="btn-icon-sm" title="다크/라이트 모드 전환" aria-label="다크 모드로 전환">
+              <!-- 밝은 모드일 때: 달 아이콘 표시 (→ 다크로) -->
+              <svg class="icon-moon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M17.5 12A7.5 7.5 0 0 1 9.5 4a7.5 7.5 0 1 0 8 8z"/>
+              </svg>
+              <!-- 어두운 모드일 때: 해 아이콘 표시 (→ 라이트로) -->
+              <svg class="icon-sun" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="10" cy="10" r="4"/>
+                <line x1="10" y1="1.5" x2="10" y2="3.5"/>
+                <line x1="10" y1="16.5" x2="10" y2="18.5"/>
+                <line x1="1.5" y1="10" x2="3.5" y2="10"/>
+                <line x1="16.5" y1="10" x2="18.5" y2="10"/>
+                <line x1="4.1" y1="4.1" x2="5.5" y2="5.5"/>
+                <line x1="14.5" y1="14.5" x2="15.9" y2="15.9"/>
+                <line x1="4.1" y1="15.9" x2="5.5" y2="14.5"/>
+                <line x1="14.5" y1="5.5" x2="15.9" y2="4.1"/>
+              </svg>
+            </button>
+            <!-- 사이드바 접기 버튼 -->
+            <button id="btn-collapse-sidebar" class="btn-icon-sm btn-collapse" title="사이드바 접기" aria-label="사이드바 접기">
+              <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polyline points="13,5 8,10 13,15"/>
+              </svg>
+            </button>
+          </div>
+        </div>
         <p class="sidebar-subtitle">ShapePlay</p>
       </div>
 
@@ -54,17 +93,35 @@
       </nav>
 
       <div class="sidebar-footer">
-        <button id="btn-clear" class="btn-danger-text">처음부터</button>
+        <button id="btn-clear" class="btn-danger-text">
+          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polyline points="3,6 17,6"/>
+            <path d="M8 6V4h4v2"/>
+            <rect x="5" y="6" width="10" height="11" rx="2"/>
+          </svg>
+          <span>처음부터</span>
+        </button>
         <div id="mode-label" class="mode-label">도형 만들기 모드</div>
         <button id="btn-tutorial" class="btn-tutorial-link">사용 방법</button>
       </div>
     </aside>
 
     <main id="canvas-area">
+      <!-- 모바일 햄버거 버튼 -->
+      <button id="btn-mobile-menu" class="mobile-menu-fab" aria-label="메뉴 열기" title="메뉴">
+        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+          <line x1="3" y1="6" x2="17" y2="6"/>
+          <line x1="3" y1="10" x2="17" y2="10"/>
+          <line x1="3" y1="14" x2="17" y2="14"/>
+        </svg>
+      </button>
       <canvas id="main-canvas"></canvas>
       <div id="drawing-hint" class="canvas-hint">격자 위를 클릭해 꼭짓점을 찍어요. 첫 점 근처를 클릭하면 도형이 완성돼요.</div>
     </main>
   </div>
+
+  <!-- 모바일 사이드바 백드롭 -->
+  <div id="sidebar-backdrop" class="sidebar-backdrop hidden"></div>
 
   <script type="module" src="/src/main.js"></script>
 </body>

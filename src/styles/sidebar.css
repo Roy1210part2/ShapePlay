@@ -15,7 +15,10 @@
   gap: 18px;
   overflow-y: auto;
   overflow-x: hidden;
-  transition: background var(--transition-base);
+  transition:
+    width var(--transition-base),
+    padding var(--transition-base),
+    background var(--transition-base);
 }
 
 /* ─── Sidebar Header ─────────────────────────────────────── */
@@ -24,6 +27,82 @@
   flex-direction: column;
   gap: 4px;
   padding-bottom: 4px;
+}
+
+/* ─── Header Title Row ───────────────────────────────────── */
+.sidebar-title-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+/* ─── Header Action Buttons (theme + collapse) ───────────── */
+.sidebar-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+  padding-top: 2px;
+}
+
+/* ─── Small Icon Button ──────────────────────────────────── */
+.btn-icon-sm {
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--border-color);
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition:
+    border-color var(--transition-fast),
+    color var(--transition-fast),
+    background var(--transition-fast);
+}
+
+.btn-icon-sm:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-light);
+}
+
+.btn-icon-sm svg {
+  width: 14px;
+  height: 14px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  flex-shrink: 0;
+}
+
+/* ─── Dark Mode Icon Toggle ──────────────────────────────── */
+/* Light mode: moon icon visible */
+#btn-theme-toggle .icon-sun  { display: none; }
+#btn-theme-toggle .icon-moon { display: block; }
+
+/* Dark mode: sun icon visible */
+:root[data-theme="dark"] #btn-theme-toggle .icon-sun  { display: block; }
+:root[data-theme="dark"] #btn-theme-toggle .icon-moon { display: none; }
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) #btn-theme-toggle .icon-sun  { display: block; }
+  :root:not([data-theme="light"]) #btn-theme-toggle .icon-moon { display: none; }
+}
+
+/* ─── Collapse Button chevron ────────────────────────────── */
+.btn-collapse svg {
+  transition: transform var(--transition-base);
+}
+
+#sidebar.collapsed .btn-collapse svg {
+  transform: rotate(180deg);
 }
 
 .sidebar-title {
@@ -142,9 +221,13 @@
 }
 
 @media (prefers-color-scheme: dark) {
-  .draw-submode-tabs button.active {
+  :root:not([data-theme="light"]) .draw-submode-tabs button.active {
     background: var(--bg-primary);
   }
+}
+
+:root[data-theme="dark"] .draw-submode-tabs button.active {
+  background: var(--bg-primary);
 }
 
 .draw-submode-tabs button:not(.active):hover {
@@ -179,6 +262,12 @@
     transform var(--transition-fast),
     box-shadow var(--transition-fast);
 }
+
+/* Dark mode: accent is near-white, confirm button text must be dark */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .btn-confirm-point { color: #111111; }
+}
+:root[data-theme="dark"] .btn-confirm-point { color: #111111; }
 
 .btn-confirm-point:hover {
   background: var(--accent-hover);
@@ -383,10 +472,175 @@
   flex-shrink: 0;
 }
 
+/* Dark mode: accent is near-white, badge text must be dark */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .shape-count-badge { color: #111111; }
+}
+:root[data-theme="dark"] .shape-count-badge { color: #111111; }
+
 /* ─── Sidebar Scroll Fade ────────────────────────────────── */
 #sidebar::after {
   content: '';
   display: block;
   height: 1px;
   flex-shrink: 0;
+}
+
+/* ══════════════════════════════════════════════════════════
+   COLLAPSED SIDEBAR
+   ══════════════════════════════════════════════════════════ */
+
+/* Prevent initial-state animation when restoring collapsed from localStorage */
+:root[data-sidebar-collapsed] #sidebar {
+  animation: none;
+}
+
+#sidebar.collapsed {
+  width: 64px;
+  padding: 20px 10px;
+  gap: 12px;
+  overflow: hidden;
+}
+
+/* Hide text-only elements when collapsed */
+#sidebar.collapsed .sidebar-title,
+#sidebar.collapsed .sidebar-subtitle,
+#sidebar.collapsed .sidebar-section-label,
+#sidebar.collapsed .draw-submode-tabs,
+#sidebar.collapsed .confirm-point-area,
+#sidebar.collapsed #mode-label,
+#sidebar.collapsed .btn-tutorial-link,
+#sidebar.collapsed .btn-danger-text > span {
+  display: none;
+}
+
+/* Center title row when collapsed (only action buttons visible) */
+#sidebar.collapsed .sidebar-title-row {
+  justify-content: center;
+}
+
+#sidebar.collapsed .sidebar-header-actions {
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* Nav buttons: icon only, centered */
+#sidebar.collapsed .menu-btn {
+  justify-content: center;
+  padding: 12px 8px;
+}
+
+#sidebar.collapsed .menu-btn > span:not(.btn-icon-wrap) {
+  display: none;
+}
+
+/* Timeline controls: stack vertically */
+#sidebar.collapsed .timeline-controls {
+  flex-direction: column;
+  gap: 6px;
+}
+
+#sidebar.collapsed .timeline-controls .icon-btn {
+  padding: 9px;
+  justify-content: center;
+}
+
+/* Footer: show only icon for clear button */
+#sidebar.collapsed .sidebar-footer {
+  align-items: center;
+  padding-top: 4px;
+}
+
+#sidebar.collapsed .btn-danger-text {
+  width: auto;
+  padding: 10px;
+  justify-content: center;
+  min-width: 0;
+}
+
+/* ══════════════════════════════════════════════════════════
+   TABLET (768px – 1023px)
+   ══════════════════════════════════════════════════════════ */
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  :root {
+    --sidebar-w: 220px;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════
+   MOBILE (≤ 767px) — sidebar becomes a left drawer overlay
+   ══════════════════════════════════════════════════════════ */
+
+@media (max-width: 767px) {
+  #sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 280px !important; /* override collapsed & tablet widths */
+    z-index: 300;
+    transform: translateX(-100%);
+    /* Override the page-load slideInLeft so we control it ourselves */
+    animation: none;
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 4px 0 24px rgba(0, 0, 0, 0.18);
+  }
+
+  #sidebar.mobile-open {
+    transform: translateX(0);
+  }
+
+  /* Re-show content that may be hidden by collapsed class on mobile */
+  #sidebar.collapsed .sidebar-title,
+  #sidebar.collapsed .sidebar-subtitle,
+  #sidebar.collapsed .draw-submode-tabs,
+  #sidebar.collapsed #mode-label,
+  #sidebar.collapsed .btn-tutorial-link,
+  #sidebar.collapsed .btn-danger-text > span {
+    display: revert;
+  }
+
+  #sidebar.collapsed .menu-btn {
+    justify-content: flex-start;
+    padding: 14px 16px;
+  }
+
+  #sidebar.collapsed .menu-btn > span:not(.btn-icon-wrap) {
+    display: inline;
+  }
+
+  #sidebar.collapsed .timeline-controls {
+    flex-direction: row;
+    gap: 8px;
+  }
+
+  #sidebar.collapsed .timeline-controls .icon-btn {
+    padding: 9px 12px;
+  }
+
+  #sidebar.collapsed .sidebar-footer {
+    align-items: stretch;
+  }
+
+  #sidebar.collapsed .btn-danger-text {
+    width: 100%;
+    padding: 8px 14px;
+    justify-content: flex-start;
+    min-width: unset;
+  }
+
+  #sidebar.collapsed .sidebar-title-row {
+    justify-content: space-between;
+  }
+
+  #sidebar.collapsed .sidebar-header-actions {
+    flex-direction: row;
+    gap: 4px;
+  }
+
+  /* Hide collapse button on mobile (drawer = always full) */
+  #btn-collapse-sidebar {
+    display: none;
+  }
 }

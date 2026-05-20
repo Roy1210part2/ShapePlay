@@ -54,9 +54,9 @@
                  'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
 }
 
-/* ─── Dark Mode ──────────────────────────────────────────── */
+/* ─── Dark Mode (system preference, unless overridden) ──── */
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme="light"]) {
     --bg-primary:   #141414;
     --bg-secondary: #1e1e1e;
     --sidebar-bg:   #1a1a1a;
@@ -77,6 +77,29 @@
     --modal-bg:     #242424;
     --modal-shadow: rgba(0, 0, 0, 0.50);
   }
+}
+
+/* ─── Dark Mode (explicit toggle) ───────────────────────── */
+:root[data-theme="dark"] {
+  --bg-primary:   #141414;
+  --bg-secondary: #1e1e1e;
+  --sidebar-bg:   #1a1a1a;
+
+  --text-primary:   #f0f0f0;
+  --text-secondary: #999999;
+
+  --border-color: #2e2e2e;
+
+  --grid-line: rgba(255, 255, 255, 0.07);
+  --grid-dot:  rgba(255, 255, 255, 0.60);
+
+  --accent:       #eeeeee;
+  --accent-hover: #ffffff;
+  --accent-light: rgba(255, 255, 255, 0.09);
+  --accent-soft:  rgba(255, 255, 255, 0.04);
+
+  --modal-bg:     #242424;
+  --modal-shadow: rgba(0, 0, 0, 0.50);
 }
 
 /* ─── Box Sizing Reset ───────────────────────────────────── */
@@ -213,4 +236,16 @@ textarea:focus {
 svg {
   display: block;
   flex-shrink: 0;
+}
+
+/* ─── Mobile: prevent iOS font zoom on input focus ───────── */
+@media (max-width: 767px) {
+  input, select, textarea {
+    font-size: 16px; /* prevents iOS auto-zoom on focus */
+  }
+
+  /* Remove tap flash on mobile */
+  button {
+    -webkit-tap-highlight-color: transparent;
+  }
 }

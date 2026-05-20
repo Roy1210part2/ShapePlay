@@ -258,3 +258,104 @@
   min-width: 44px;
   text-align: center;
 }
+
+/* ══════════════════════════════════════════════════════════
+   MOBILE ELEMENTS
+   ══════════════════════════════════════════════════════════ */
+
+/* ─── Mobile Hamburger FAB ───────────────────────────────── */
+.mobile-menu-fab {
+  display: none; /* shown only on mobile via media query */
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 50;
+  width: 40px;
+  height: 40px;
+  background: var(--modal-bg);
+  border: 1.5px solid var(--border-color);
+  border-radius: 50%;
+  color: var(--text-secondary);
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px var(--modal-shadow);
+  transition:
+    background var(--transition-fast),
+    border-color var(--transition-fast),
+    color var(--transition-fast),
+    transform var(--transition-fast);
+}
+
+.mobile-menu-fab:hover {
+  background: var(--accent-light);
+  border-color: var(--accent);
+  color: var(--accent);
+  transform: scale(1.08);
+}
+
+.mobile-menu-fab svg {
+  width: 18px;
+  height: 18px;
+  stroke: currentColor;
+  flex-shrink: 0;
+}
+
+/* ─── Sidebar Backdrop ───────────────────────────────────── */
+.sidebar-backdrop {
+  display: none; /* shown on mobile when drawer is open */
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 299;
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+}
+
+/* ─── Mobile breakpoint ──────────────────────────────────── */
+@media (max-width: 767px) {
+  .mobile-menu-fab {
+    display: flex;
+  }
+
+  .sidebar-backdrop:not(.hidden) {
+    display: block;
+  }
+
+  /* Mode indicator: shift right so it doesn't overlap the hamburger FAB */
+  #mode-indicator {
+    left: 64px;
+  }
+
+  /* Mission info banner: avoid overlap with FAB, centered below top */
+  #mission-info {
+    top: 64px;
+    max-width: calc(100% - 40px);
+    white-space: normal;
+    text-align: center;
+  }
+
+  /* Hint bar: wrap long text, give bottom space for zoom controls */
+  .canvas-hint {
+    white-space: normal;
+    text-align: center;
+    max-width: calc(100% - 48px);
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 8px 16px;
+    bottom: 16px;
+    font-size: 0.78rem;
+  }
+
+  /* Zoom controls: larger tap area on mobile */
+  .zoom-btn {
+    width: 36px;
+    height: 36px;
+  }
+
+  /* Canvas FABs: larger tap target */
+  .canvas-fab {
+    width: 44px;
+    height: 44px;
+  }
+}

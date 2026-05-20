@@ -281,6 +281,13 @@
   animation: slideInLeft 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
 }
 
+/* Mobile: disable page-load animation so transform-based drawer works */
+@media (max-width: 767px) {
+  #sidebar {
+    animation: none;
+  }
+}
+
 /* ─── Confirm Button ─────────────────────────────────────── */
 .btn-confirm-point {
   transition:

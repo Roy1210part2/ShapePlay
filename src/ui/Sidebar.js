@@ -6,6 +6,10 @@ import { openShapeSelectModal }    from '../modals/ShapeSelectModal.js';
 import { openTutorialModal }       from '../modals/TutorialModal.js';
 
 export function initSidebar() {
+  initTheme();
+  initSidebarCollapse();
+  initMobileSidebar();
+
   // Drawing mode toggle (polygon vs point)
   document.getElementById('draw-sub-polygon')?.addEventListener('click', () => {
     state.drawSubMode = 'polygon';
@@ -117,6 +121,87 @@ export function updateHint() {
   } else {
     hintEl.classList.add('hidden');
   }
+}
+
+// ── Theme toggle ─────────────────────────────────────────────
+function initTheme() {
+  const btn = document.getElementById('btn-theme-toggle');
+  if (!btn) return;
+
+  btn.addEventListener('click', () => {
+    const isDark =
+      document.documentElement.getAttribute('data-theme') === 'dark' ||
+      (!document.documentElement.getAttribute('data-theme') &&
+        window.matchMedia('(prefers-color-scheme: dark)').matches);
+    const next = isDark ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+    btn.setAttribute('aria-label', next === 'dark' ? '라이트 모드로 전환' : '다크 모드로 전환');
+  });
+}
+
+// ── Sidebar collapse ──────────────────────────────────────────
+function initSidebarCollapse() {
+  const btn     = document.getElementById('btn-collapse-sidebar');
+  const sidebar = document.getElementById('sidebar');
+  if (!btn || !sidebar) return;
+
+  const saved = localStorage.getItem('sidebar-collapsed');
+  if (saved === 'true') {
+    // Restore collapsed state without animation
+    sidebar.style.transition = 'none';
+    sidebar.classList.add('collapsed');
+    btn.setAttribute('aria-label', '사이드바 펼치기');
+    btn.setAttribute('title', '사이드바 펼치기');
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        sidebar.style.transition = '';
+        document.documentElement.removeAttribute('data-sidebar-collapsed');
+      });
+    });
+  }
+
+  btn.addEventListener('click', () => {
+    sidebar.classList.toggle('collapsed');
+    const isCollapsed = sidebar.classList.contains('collapsed');
+    localStorage.setItem('sidebar-collapsed', isCollapsed);
+    btn.setAttribute('aria-label', isCollapsed ? '사이드바 펼치기' : '사이드바 접기');
+    btn.setAttribute('title', isCollapsed ? '사이드바 펼치기' : '사이드바 접기');
+    // Resize canvas after sidebar transition ends
+    sidebar.addEventListener('transitionend', () => {
+      window.dispatchEvent(new Event('resize'));
+    }, { once: true });
+  });
+}
+
+// ── Mobile sidebar drawer ─────────────────────────────────────
+function initMobileSidebar() {
+  const menuBtn  = document.getElementById('btn-mobile-menu');
+  const backdrop = document.getElementById('sidebar-backdrop');
+  const sidebar  = document.getElementById('sidebar');
+  if (!menuBtn || !backdrop || !sidebar) return;
+
+  function openDrawer() {
+    sidebar.classList.add('mobile-open');
+    backdrop.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeDrawer() {
+    sidebar.classList.remove('mobile-open');
+    backdrop.classList.add('hidden');
+    document.body.style.overflow = '';
+  }
+
+  menuBtn.addEventListener('click', openDrawer);
+  backdrop.addEventListener('click', closeDrawer);
+
+  // Close drawer when a main-menu button is clicked (navigation happened)
+  document.querySelectorAll('.menu-btn').forEach(b => {
+    b.addEventListener('click', () => {
+      if (window.innerWidth < 768) closeDrawer();
+    });
+  });
 }
 
 function updateDrawSubMode() {
